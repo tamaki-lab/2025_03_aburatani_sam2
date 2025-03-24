@@ -138,13 +138,21 @@ try:
                 self.extensions = []
                 return "_C.so"
 
+    # cmdclass = {
+    #     "build_ext": (
+    #         BuildExtensionIgnoreErrors.with_options(no_python_abi_suffix=True)
+    #         if BUILD_ALLOW_ERRORS
+    #         else BuildExtension.with_options(no_python_abi_suffix=True)
+    #     )
+    # }
     cmdclass = {
         "build_ext": (
-            BuildExtensionIgnoreErrors.with_options(no_python_abi_suffix=True)
+            BuildExtensionIgnoreErrors
             if BUILD_ALLOW_ERRORS
-            else BuildExtension.with_options(no_python_abi_suffix=True)
+            else BuildExtension
         )
     }
+    
 except Exception as e:
     cmdclass = {}
     if BUILD_ALLOW_ERRORS:
